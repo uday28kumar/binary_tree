@@ -3,6 +3,7 @@
 #include<stack>
 #include<queue>
 #include<map>
+#include<deque>
 using namespace std;
 
 template <class T>
@@ -40,6 +41,7 @@ void printBinaryTreeLevelWise(vector<vector<T> > res){
     cout<<endl;
 }
 
+/* Pre-Order Traversal */
 template <class T>
 void preOrderTraversalUtil(Node<T> *node, vector<T> &res){
     if(node == NULL){
@@ -257,4 +259,132 @@ int height(Node<T> *root){
         return 0;
     return max(height(root->left), height(root->right))+1;
 }
+
+template<class T>
+vector<T> spiralOrderTraversal(Node<T> *root){
+    vector<T> res;
+    if(root == NULL){
+        return res;
+    }
+    deque<Node<T> *> dq;
+    dq.push_back(root);
+    bool flag = 0;
+    while(!dq.empty()){
+        if(flag == 0){
+            int dq_size = dq.size();
+            while(dq_size--){
+                Node<T> *curr = dq.front();
+                res.push_back(curr->data);
+                dq.pop_front();
+                if(curr->left){
+                    dq.push_back(curr->left);
+                }
+                if(curr->right){
+                    dq.push_back(curr->right);
+                }
+            }
+            flag = 1;
+        }else{
+            int dq_size = dq.size();
+            while(dq_size--){
+                Node<T> *curr = dq.back();
+                res.push_back(curr->data);
+                dq.pop_back();
+                if(curr->right){
+                    dq.push_front(curr->right);
+                }
+                if(curr->left){
+                    dq.push_front(curr->left);
+                }
+            }
+            flag = 0;
+        }
+    }
+    return res;
+}
+
+template<class T>
+void leftViewOfBinaryTreeUtil(Node<T> *node, int level, map<int, T> &resMap){
+    if(node == NULL){
+        return;
+    }
+    if(resMap.find(level) == resMap.end()){
+        resMap[level] = node->data;
+    }
+    leftViewOfBinaryTreeUtil(node->left, level+1, resMap);
+    leftViewOfBinaryTreeUtil(node->right, level+1, resMap);
+}
+
+template<class T>
+vector<T> leftViewOfBinaryTree(Node<T> *root){
+    vector<T>res;
+    if(root == NULL){
+        return res;
+    }
+    map<int, T> resMap;
+    leftViewOfBinaryTreeUtil(root, 0, resMap);
+    int n = resMap.size();
+    for(int i = 0; i < n; i++){
+        res.push_back(resMap[i]);
+    }
+    return res;
+}
+template<class T>
+vector<T> iLeftViewOfBinaryTree(Node<T> *root){
+    vector<T>res;
+    if(root == NULL){
+        return res;
+    }
+    queue<Node<T> *>q;
+    q.push(root);
+    int level = -1;
+    while(!q.empty()){
+        level++;
+        int q_size = q.size();
+        bool flag = true;
+        while(q_size--){
+            Node<T> *curr = q.front();
+            q.pop();
+            if(flag == true){
+                res.push_back(curr->data);
+                flag = false;
+            }
+            if(curr->left){
+                q.push(curr->left);
+            }
+            if(curr->right){
+                q.push(curr->right);
+            }
+        }
+    }
+    return res;
+}
+
+template<class T>
+void bottomViewOfBinaryTreeUtil(Node<T> *node, int position, map<int, T> &resMap){
+    if(node == NULL){
+        return;
+    }
+    resMap[position] = node->data;
+    bottomViewOfBinaryTreeUtil(node->left, position - 1, resMap);
+    bottomViewOfBinaryTreeUtil(node->right, position + 1, resMap);
+}
+
+template<class T>
+vector<T> bottomViewOfBinaryTree(Node<T> *root){
+    vector<T> res;
+    if(root == NULL){
+        return res;
+    }
+    map<int, T> resMap;
+    bottomViewOfBinaryTreeUtil(root, 0, resMap);
+    typename map<int, T>::iterator it = resMap.begin();
+    while(it!=resMap.end()){
+        res.push_back(it->second);
+        it++;
+    }
+    return res;
+}
+
+
 

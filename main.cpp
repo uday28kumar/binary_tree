@@ -84,8 +84,12 @@ int main()
     cout<<"Recursive Level-Order Traversal: "; printBinaryTreeLevelWise(levelOrderTraversal(root));
     cout<<"Iterative Level-Order Traversal: "; printBinaryTreeLevelWise(iLevelOrderTraversal(root));
     cout<<"Reverse Level-Order Traversal: "; printBinaryTree(reverseLevelOrderTraversal(root));
+    cout<<"Spiral Order-Traversal: "; printBinaryTree(spiralOrderTraversal(root));
     cout<<"Is Identical: "<<isIdentical(root1, root2)<<endl;
     cout<<"Height: "<<height(root)<<endl;
+    cout<<"Recursive left view of Binary Tree: "; printBinaryTree(leftViewOfBinaryTree(root));
+    cout<<"Iterative left view of Binary Tree: "; printBinaryTree(iLeftViewOfBinaryTree(root));
+    cout<<"Bottom view of Binary Tree: "; printBinaryTree(bottomViewOfBinaryTree(root));
 
 	return 0;
 }

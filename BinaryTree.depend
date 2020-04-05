@@ -1,12 +1,13 @@
 # depslib dependency file v1.0
-1582456677 source:d:\data_structure_and_algorithm\binarytree\main.cpp
+1585570595 source:d:\data_structure_and_algorithm\binarytree\main.cpp
 	<iostream>
 	<vector>
 	"binarytree.h"
 
-1582460497 d:\data_structure_and_algorithm\binarytree\binarytree.h
+1585572072 d:\data_structure_and_algorithm\binarytree\binarytree.h
 	<vector>
 	<stack>
 	<queue>
 	<map>
+	<deque>
 
